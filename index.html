@@ -632,7 +632,7 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="order-title">
       <button class="close-modal" id="closeOrderModal" aria-label="Close">×</button>
       <h3 id="order-title">Send Your Friend Names</h3>
-      <p class="form-note">Leave your WhatsApp and 5 names. We will receive it at TIKTOKFRIEND@ICLOUD.COM.</p>
+      <p class="form-note">Leave your WhatsApp and 5 names. After submit, WhatsApp opens with your message ready to send.</p>
       <form class="order-form" id="orderForm">
         <div>
           <label for="whatsapp">WhatsApp Number</label>
@@ -660,7 +660,7 @@
         </div>
         <button class="btn" type="submit">Send Request</button>
       </form>
-      <p class="form-note">After clicking send, your email app will open with all details prefilled.</p>
+      <p class="form-note">After clicking send, WhatsApp will open with all details prefilled.</p>
     </div>
   </div>
 
@@ -668,7 +668,7 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="custom-title">
       <button class="close-modal" id="closeCustomModal" aria-label="Close">×</button>
       <h3 id="custom-title">Create Custom Video</h3>
-      <p class="form-note">Leave your WhatsApp number or nickname. We will contact you from TIKTOKFRIEND@ICLOUD.COM.</p>
+      <p class="form-note">Leave your WhatsApp number or nickname. After submit, WhatsApp opens with your message ready to send.</p>
       <form class="order-form" id="customForm">
         <div>
           <label for="customContact">WhatsApp Number or Nickname</label>
@@ -681,11 +681,14 @@
 
   <footer>
     <div class="wrap">
-      <p>Questions? <a href="mailto:contact@yourwebsite.com">contact@yourwebsite.com</a></p>
+      <p>Questions? WhatsApp: <a href="https://wa.me/15615731769" target="_blank" rel="noopener noreferrer">+1 561 573 1769</a> | Email: <a href="mailto:TIKTOKFRIEND@ICLOUD.COM">TIKTOKFRIEND@ICLOUD.COM</a></p>
       <p>&copy; All videos are made for humor and entertainment.</p>
     </div>
   </footer>
   <script>
+    // Replace with your business WhatsApp number in international format (digits only), e.g. 15551234567
+    const BUSINESS_WHATSAPP = "15615731769";
+
     const orderModal = document.getElementById("orderModal");
     const closeOrderModal = document.getElementById("closeOrderModal");
     const orderForm = document.getElementById("orderForm");
@@ -755,9 +758,9 @@
         document.getElementById("name5").value.trim()
       ];
 
-      const subject = encodeURIComponent("New Quick Video Request");
       const body = encodeURIComponent(
-        "WhatsApp: " + whatsapp + "\\n\\n" +
+        "*New Quick Video Request*\\n\\n" +
+        "Customer WhatsApp: " + whatsapp + "\\n\\n" +
         "Names:\\n" +
         "1. " + names[0] + "\\n" +
         "2. " + names[1] + "\\n" +
@@ -766,7 +769,7 @@
         "5. " + names[4]
       );
 
-      window.location.href = "mailto:TIKTOKFRIEND@ICLOUD.COM?subject=" + subject + "&body=" + body;
+      window.location.href = "https://wa.me/" + BUSINESS_WHATSAPP + "?text=" + body;
       closeModal(orderModal);
       orderForm.reset();
     });
@@ -775,10 +778,9 @@
       event.preventDefault();
 
       const customContact = document.getElementById("customContact").value.trim();
-      const subject = encodeURIComponent("New Custom Story Request");
-      const body = encodeURIComponent("WhatsApp or Nickname: " + customContact);
+      const body = encodeURIComponent("*New Custom Story Request*\\n\\nWhatsApp or Nickname: " + customContact);
 
-      window.location.href = "mailto:TIKTOKFRIEND@ICLOUD.COM?subject=" + subject + "&body=" + body;
+      window.location.href = "https://wa.me/" + BUSINESS_WHATSAPP + "?text=" + body;
       closeModal(customModal);
       customForm.reset();
     });
