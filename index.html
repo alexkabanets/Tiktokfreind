@@ -170,16 +170,14 @@
 
     .clip {
       position: relative;
-      min-height: 210px;
+      min-height: 320px;
       border: 2px solid var(--line);
       border-radius: 1rem;
       overflow: hidden;
-      background: linear-gradient(130deg, #ffd381 0%, #ff8f6a 35%, #ff5e77 100%);
-      color: #fff;
-      display: flex;
-      align-items: flex-end;
-      padding: 1rem;
+      background: #000;
       animation: pulse 2.4s infinite ease-in-out;
+      display: block;
+      text-decoration: none;
     }
 
     .clip::before {
@@ -196,10 +194,26 @@
       font-weight: 700;
     }
 
-    .clip span {
-      font-size: 1.1rem;
-      font-weight: 800;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.24);
+    .clip img {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      object-fit: cover;
+      display: block;
+      opacity: 0.9;
+    }
+
+    .clip .watch-label {
+      position: absolute;
+      bottom: 0.8rem;
+      left: 0.8rem;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 999px;
+      padding: 0.32rem 0.7rem;
+      font-size: 0.82rem;
+      font-weight: 700;
     }
 
     @keyframes pulse {
@@ -301,18 +315,6 @@
       font-weight: 600;
     }
 
-    .tiktok {
-      border: 2px solid var(--line);
-      border-radius: 1rem;
-      background: #fff;
-      padding: 1.1rem;
-      margin-top: 1.5rem;
-    }
-
-    .tiktok .list {
-      margin-top: 0.6rem;
-    }
-
     .pay-grid {
       margin-top: 1.5rem;
       display: grid;
@@ -374,6 +376,75 @@
       margin-bottom: 0.6rem;
     }
 
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.62);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 1rem;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      width: min(560px, 95vw);
+      border: 2px solid var(--line);
+      border-radius: 1rem;
+      background: #fff;
+      padding: 1rem;
+      position: relative;
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .modal h3 {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 2rem;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.55rem;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 0.45rem;
+      width: 2rem;
+      height: 2rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .order-form {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .order-form label {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .order-form input {
+      width: 100%;
+      border: 2px solid #d4ccbe;
+      border-radius: 0.65rem;
+      padding: 0.65rem 0.7rem;
+      font: inherit;
+    }
+
+    .form-note {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
     footer {
       text-align: center;
       color: var(--muted);
@@ -414,7 +485,7 @@
           <p class="sub">The reason you never introduce them to your girlfriend. We turn names into 5-7 short funny videos with ridiculous labels and playful explanations.</p>
           <p class="note">Think: <strong>"Alex the Dancer"</strong>, <strong>"Antony the Racer"</strong>, and total nonsense.</p>
           <div class="cta-row">
-            <a class="btn" href="#pricing">Create Your Video</a>
+            <a class="btn open-order-modal" href="#">Create Your Video</a>
             <span class="hero-price">Starts at $4.99</span>
           </div>
         </div>
@@ -434,7 +505,10 @@
         <h2 class="section-title">Everyone Sees Their Friends Here</h2>
         <p class="lead">Example videos auto-play. Tag the one who is definitely <strong>Slam Dunk</strong>.</p>
         <div class="example-grid" aria-label="Auto play example videos">
-          <article class="clip"><span>"Antony the Racer" outruns consequences</span></article>
+          <a class="clip" href="https://youtube.com/shorts/WUrrxiqpeic" target="_blank" rel="noopener noreferrer" aria-label="Open example video">
+            <img src="https://i.ytimg.com/vi/WUrrxiqpeic/hqdefault.jpg" alt="Example funny friends video preview" loading="lazy" />
+            <span class="watch-label">Watch Example</span>
+          </a>
         </div>
       </div>
     </section>
@@ -470,7 +544,7 @@
               <p>• 5-7 friends</p>
               <p>• Perfect for Instagram & TikTok</p>
             </div>
-            <a class="btn" href="#">Make Quick Video</a>
+            <a class="btn open-order-modal" href="#">Make Quick Video</a>
           </article>
           <article class="card featured">
             <h3>Fully Custom Story</h3>
@@ -482,7 +556,7 @@
               <p>• Hand-crafted video</p>
               <p>• Delivered within 24 hours</p>
             </div>
-            <a class="btn" href="#">Create Custom Video</a>
+            <a class="btn open-custom-modal" href="#">Create Custom Video</a>
             <strong>Most personal</strong>
           </article>
         </div>
@@ -504,20 +578,6 @@
         </div>
 
         <p class="safe"><strong>Safety note:</strong> This is comedy. No hate. No real accusations. No harm intended. If it's not funny, we won't use it.</p>
-
-        <article class="tiktok">
-          <h4>TikTok-Only Version</h4>
-          <div class="list">
-            <p>• Vertical 9:16 format</p>
-            <p>• First joke lands in the first second</p>
-            <p>• Bold subtitles for silent watching</p>
-            <p>• Built for tags, stitches, and reposts</p>
-          </div>
-          <div class="cta-row">
-            <a class="btn" href="#">Create TikTok Version</a>
-            <span class="hero-price">Optimized for TikTok engagement</span>
-          </div>
-        </article>
       </div>
     </section>
 
@@ -563,10 +623,61 @@
     <section>
       <div class="wrap final-cta">
         <h2>Ready to Explain Your Friends?</h2>
-        <a class="btn" href="#pricing">Create Your Video</a>
+        <a class="btn open-order-modal" href="#">Create Your Video</a>
       </div>
     </section>
   </main>
+
+  <div class="modal-backdrop" id="orderModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="order-title">
+      <button class="close-modal" id="closeOrderModal" aria-label="Close">×</button>
+      <h3 id="order-title">Send Your Friend Names</h3>
+      <p class="form-note">Leave your WhatsApp and 5 names. We will receive it at TIKTOKFRIEND@ICLOUD.COM.</p>
+      <form class="order-form" id="orderForm">
+        <div>
+          <label for="whatsapp">WhatsApp Number</label>
+          <input id="whatsapp" name="whatsapp" type="text" required placeholder="+1 555 123 4567" />
+        </div>
+        <div>
+          <label for="name1">Friend Name 1</label>
+          <input id="name1" name="name1" type="text" required placeholder="Alex" />
+        </div>
+        <div>
+          <label for="name2">Friend Name 2</label>
+          <input id="name2" name="name2" type="text" required placeholder="Antony" />
+        </div>
+        <div>
+          <label for="name3">Friend Name 3</label>
+          <input id="name3" name="name3" type="text" required />
+        </div>
+        <div>
+          <label for="name4">Friend Name 4</label>
+          <input id="name4" name="name4" type="text" required />
+        </div>
+        <div>
+          <label for="name5">Friend Name 5</label>
+          <input id="name5" name="name5" type="text" required />
+        </div>
+        <button class="btn" type="submit">Send Request</button>
+      </form>
+      <p class="form-note">After clicking send, your email app will open with all details prefilled.</p>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="customModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="custom-title">
+      <button class="close-modal" id="closeCustomModal" aria-label="Close">×</button>
+      <h3 id="custom-title">Create Custom Video</h3>
+      <p class="form-note">Leave your WhatsApp number or nickname. We will contact you from TIKTOKFRIEND@ICLOUD.COM.</p>
+      <form class="order-form" id="customForm">
+        <div>
+          <label for="customContact">WhatsApp Number or Nickname</label>
+          <input id="customContact" name="customContact" type="text" required placeholder="+1 555 123 4567 or @nickname" />
+        </div>
+        <button class="btn" type="submit">Send Contact</button>
+      </form>
+    </div>
+  </div>
 
   <footer>
     <div class="wrap">
@@ -574,5 +685,103 @@
       <p>&copy; All videos are made for humor and entertainment.</p>
     </div>
   </footer>
+  <script>
+    const orderModal = document.getElementById("orderModal");
+    const closeOrderModal = document.getElementById("closeOrderModal");
+    const orderForm = document.getElementById("orderForm");
+    const orderOpenButtons = document.querySelectorAll(".open-order-modal");
+    const customModal = document.getElementById("customModal");
+    const closeCustomModal = document.getElementById("closeCustomModal");
+    const customForm = document.getElementById("customForm");
+    const customOpenButtons = document.querySelectorAll(".open-custom-modal");
+
+    function openModal(modalElement) {
+      modalElement.classList.add("open");
+      modalElement.setAttribute("aria-hidden", "false");
+    }
+
+    function closeModal(modalElement) {
+      modalElement.classList.remove("open");
+      modalElement.setAttribute("aria-hidden", "true");
+    }
+
+    orderOpenButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        openModal(orderModal);
+      });
+    });
+
+    customOpenButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        openModal(customModal);
+      });
+    });
+
+    closeOrderModal.addEventListener("click", () => closeModal(orderModal));
+    closeCustomModal.addEventListener("click", () => closeModal(customModal));
+
+    orderModal.addEventListener("click", (event) => {
+      if (event.target === orderModal) {
+        closeModal(orderModal);
+      }
+    });
+
+    customModal.addEventListener("click", (event) => {
+      if (event.target === customModal) {
+        closeModal(customModal);
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && orderModal.classList.contains("open")) {
+        closeModal(orderModal);
+      }
+      if (event.key === "Escape" && customModal.classList.contains("open")) {
+        closeModal(customModal);
+      }
+    });
+
+    orderForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const whatsapp = document.getElementById("whatsapp").value.trim();
+      const names = [
+        document.getElementById("name1").value.trim(),
+        document.getElementById("name2").value.trim(),
+        document.getElementById("name3").value.trim(),
+        document.getElementById("name4").value.trim(),
+        document.getElementById("name5").value.trim()
+      ];
+
+      const subject = encodeURIComponent("New Quick Video Request");
+      const body = encodeURIComponent(
+        "WhatsApp: " + whatsapp + "\\n\\n" +
+        "Names:\\n" +
+        "1. " + names[0] + "\\n" +
+        "2. " + names[1] + "\\n" +
+        "3. " + names[2] + "\\n" +
+        "4. " + names[3] + "\\n" +
+        "5. " + names[4]
+      );
+
+      window.location.href = "mailto:TIKTOKFRIEND@ICLOUD.COM?subject=" + subject + "&body=" + body;
+      closeModal(orderModal);
+      orderForm.reset();
+    });
+
+    customForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const customContact = document.getElementById("customContact").value.trim();
+      const subject = encodeURIComponent("New Custom Story Request");
+      const body = encodeURIComponent("WhatsApp or Nickname: " + customContact);
+
+      window.location.href = "mailto:TIKTOKFRIEND@ICLOUD.COM?subject=" + subject + "&body=" + body;
+      closeModal(customModal);
+      customForm.reset();
+    });
+  </script>
 </body>
 </html>
